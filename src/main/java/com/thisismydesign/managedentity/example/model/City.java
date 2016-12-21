@@ -1,6 +1,6 @@
-package com.csapagyi.managedentity.example.model;
+package com.thisismydesign.managedentity.example.model;
 
-import com.csapagyi.managedentity.ManagedEntity;
+import com.thisismydesign.managedentity.ManagedEntity;
 
 import javax.persistence.*;
 import java.util.HashMap;

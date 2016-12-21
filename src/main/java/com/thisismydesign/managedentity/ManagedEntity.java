@@ -1,4 +1,4 @@
-package com.csapagyi.managedentity;
+package com.thisismydesign.managedentity;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;

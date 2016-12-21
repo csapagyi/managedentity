@@ -1,9 +1,9 @@
-package com.csapagyi.managedentity.example.dao;
+package com.thisismydesign.managedentity.example.dao;
 
-import com.csapagyi.managedentity.ManagedEntity;
-import com.csapagyi.managedentity.dao.IManagedEntityDAO;
-import com.csapagyi.managedentity.example.model.City;
-import com.csapagyi.managedentity.example.model.Person;
+import com.thisismydesign.managedentity.ManagedEntity;
+import com.thisismydesign.managedentity.dao.IManagedEntityDAO;
+import com.thisismydesign.managedentity.example.model.City;
+import com.thisismydesign.managedentity.example.model.Person;
 
 public class PersonDAO implements IManagedEntityDAO {
 
