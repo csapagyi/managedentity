@@ -14,10 +14,18 @@ public abstract class ManagedEntity {
     private final static Logger LOGGER = Logger.getLogger(ManagedEntity.class.getName());
 
     public ManagedEntity merge() {
-        ManagedEntity object = this;
         Session session = DBAdapter.getInstance().getSession();
 
         session.beginTransaction();
+        ManagedEntity object = merge(session);
+        session.getTransaction().commit();
+
+        return object;
+    }
+
+    public ManagedEntity merge(Session session) {
+        ManagedEntity object = this;
+
         ManagedEntity found = object.findUnique(session);
         if (found != null) {
             object = found;
@@ -43,19 +51,22 @@ public abstract class ManagedEntity {
             }
         }
 
+        return object;
+    }
+
+    public ManagedEntity update() {
+        Session session = DBAdapter.getInstance().getSession();
+
+        session.beginTransaction();
+        ManagedEntity object = update(session);
         session.getTransaction().commit();
 
         return object;
     }
 
-    public ManagedEntity update() {
+    public ManagedEntity update(Session session) {
         ManagedEntity object = this;
-        Session session = DBAdapter.getInstance().getSession();
-
-        session.beginTransaction();
         session.update(object);
-        session.getTransaction().commit();
-
         return object;
     }
 
