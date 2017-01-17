@@ -15,7 +15,7 @@ public abstract class ManagedEntity {
     private final static Logger LOGGER = Logger.getLogger(ManagedEntity.class.getName());
 
     public ManagedEntity merge() {
-        Session session = DBAdapter.getInstance().getSession();
+        Session session = DBAdapter.getInstance().getCurrentSession();
 
         session.beginTransaction();
         ManagedEntity object = merge(session);
@@ -40,7 +40,7 @@ public abstract class ManagedEntity {
                         "nested sessions would solve this. Object: %s", object));
                 session.getTransaction().rollback();
 
-                session = DBAdapter.getInstance().getSession();
+                session = DBAdapter.getInstance().getCurrentSession();
                 session.beginTransaction();
                 found = object.findUnique(session);
                 if (found == null) {
@@ -56,7 +56,7 @@ public abstract class ManagedEntity {
     }
 
     public ManagedEntity update() {
-        Session session = DBAdapter.getInstance().getSession();
+        Session session = DBAdapter.getInstance().getCurrentSession();
 
         session.beginTransaction();
         ManagedEntity object = update(session);

@@ -23,6 +23,10 @@ public class DBAdapter {
     }
 
     public Session getSession() {
+        return sf.openSession();
+    }
+
+    public Session getCurrentSession() {
         return sf.getCurrentSession();
     }
 
