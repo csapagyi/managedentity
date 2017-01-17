@@ -19,7 +19,7 @@ public class Person extends ManagedEntity {
     @JoinColumn(name = "city_id", referencedColumnName = "id")
     private City city;
 
-    protected HashMap<String, ?> getEqualsCriteriaList() {
+    protected HashMap<String, ?> getEqualsCriteria() {
         HashMap<String, Object> criteriaList = new HashMap<>();
         criteriaList.put("name", getName());
 

@@ -71,10 +71,10 @@ public abstract class ManagedEntity {
         return object;
     }
 
-    protected abstract HashMap<String, ?> getEqualsCriteriaList();
+    protected abstract HashMap<String, ?> getEqualsCriteria();
 
     private ManagedEntity findUnique(Session session) {
-        HashMap<String, ?> criteriaList = getEqualsCriteriaList();
+        HashMap<String, ?> criteriaList = getEqualsCriteria();
         Criteria criteria = session.createCriteria(this.getClass());
         for (String key : criteriaList.keySet()) {
             criteria.add(eq(key, criteriaList.get(key)));

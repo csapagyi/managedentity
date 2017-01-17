@@ -20,7 +20,7 @@ public class City extends ManagedEntity {
     private List<Person> persons;
 
     @Override
-    protected HashMap<String, ?> getEqualsCriteriaList() {
+    protected HashMap<String, ?> getEqualsCriteria() {
         HashMap<String, Object> criteriaList = new HashMap<>();
         criteriaList.put("name", getName());
 
