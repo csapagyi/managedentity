@@ -1,5 +1,6 @@
 package com.thisismydesign.managedentity;
 
+import com.thisismydesign.managedentity.db.DBAdapter;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.exception.ConstraintViolationException;

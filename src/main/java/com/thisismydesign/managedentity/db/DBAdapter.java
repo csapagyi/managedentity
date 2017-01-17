@@ -1,4 +1,4 @@
-package com.thisismydesign.managedentity;
+package com.thisismydesign.managedentity.db;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
