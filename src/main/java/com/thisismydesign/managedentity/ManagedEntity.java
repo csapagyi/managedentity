@@ -10,10 +10,26 @@ import java.util.logging.Logger;
 
 import static org.hibernate.criterion.Restrictions.eq;
 
+/**
+ * This class supports entity management with secondary DB keys (a.k.a. business keys) while also using Ids as primary
+ * keys
+ *
+ * <p>Entity classes should extend.
+ * See example in test package.
+ *
+ * @see <a href="http://lifeinacubicleblog.com/2016/10/09/jpa-the-uniqueness-dilemma-solution/">JPA - The uniqueness dilemma and solution</a>
+ */
 public abstract class ManagedEntity {
 
     private final static Logger LOGGER = Logger.getLogger(ManagedEntity.class.getName());
 
+    /**
+     * Persists self if no persisted entity with the same secondary keys exists.
+     *
+     * <p>{@link Session} is queried from DBAdapter via {@link DBAdapter#getCurrentSession}.
+     *
+     * @return persisted entity
+     */
     public ManagedEntity merge() {
         Session session = DBAdapter.getInstance().getCurrentSession();
 
@@ -24,6 +40,14 @@ public abstract class ManagedEntity {
         return object;
     }
 
+    /**
+     * Persists self using provided {@link Session} if no persisted entity with the same secondary keys exists.
+     *
+     * <p>Upon {@link ConstraintViolationException} {@link Session} is queried from DBAdapter via {@link DBAdapter#getCurrentSession}.
+     *
+     * @param session {@link Session} used to access DB
+     * @return persisted entity
+     */
     public ManagedEntity merge(Session session) {
         ManagedEntity object = this;
 
@@ -55,6 +79,13 @@ public abstract class ManagedEntity {
         return object;
     }
 
+    /**
+     * Updates self if no persisted entity with the same secondary keys is already present.
+     *
+     * <p>{@link Session} is queried from DBAdapter via {@link DBAdapter#getCurrentSession}.
+     *
+     * @return persisted entity
+     */
     public ManagedEntity update() {
         Session session = DBAdapter.getInstance().getCurrentSession();
 
@@ -65,12 +96,46 @@ public abstract class ManagedEntity {
         return object;
     }
 
+    /**
+     * Updates self using provided {@link Session} if no persisted entity with the same secondary keys exists.
+     *
+     * @param session {@link Session} used to access DB
+     * @return persisted entity
+     */
     public ManagedEntity update(Session session) {
         ManagedEntity object = this;
         session.update(object);
         return object;
     }
 
+    /**
+     * Get uniqueness criteria of self in a HashMap using Java attribute name as key.
+     *
+     * <p>All child entities must implement it.
+     * <p>Example implementation:
+     * <pre>
+     * <code>
+     *{@literal @}Column(name = "name")
+     * private String name;
+     *
+     *{@literal @}Column(name = "group_name")
+     * private String groupName;
+     *
+     * ...
+     *{@code
+     * protected HashMap<String, ?> getEqualsCriteriaList() {
+     *     HashMap<String, String> criteriaList = new HashMap<>();
+     *     criteriaList.put("name", getName());
+     *     criteriaList.put("groupName", getGroupName());
+     *
+     *     return criteriaList;
+     * }
+     * }
+     * </code>
+     * </pre>
+     *
+     * @return uniqueness criteria
+     */
     protected abstract HashMap<String, ?> getEqualsCriteria();
 
     private ManagedEntity findUnique(Session session) {
