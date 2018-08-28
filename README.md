@@ -4,7 +4,7 @@
 
 #### Features:
 - get EntityManager and Session objects from JPA via unified API
-- support secondary DB keys (a.k.a. business keys) while also using Ids as primary keys ([see also: JPA - The uniqueness dilemma and solution](http://lifeinacubicleblog.com/2016/10/09/jpa-the-uniqueness-dilemma-solution/))
+- support secondary DB keys (a.k.a. business keys) while also using Ids as primary keys ([see also: JPA - The uniqueness dilemma and solution](https://medium.com/@csaba.apagyi/jpa-the-uniqueness-dilemma-solution-29fabc293fec))
 - paginate DB entries based on custom criteria
 
 API documentation available at https://thisismydesign.github.io/managed-entity/javadoc/
